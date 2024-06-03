@@ -19,7 +19,6 @@ class BottomNavBar extends StatelessWidget {
       return [
         const HomePage(),
         const ExplorePage(),
-        const AddPage(),
         const InboxPage(),
         const ShoppingPage(),
       ];
@@ -36,11 +35,6 @@ class BottomNavBar extends StatelessWidget {
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.explore),
           title: ("Explore"),
-          activeColorPrimary: Colors.deepPurple,
-          inactiveColorPrimary: Colors.grey,
-        ),
-        PersistentBottomNavBarItem(
-          icon: const Icon(Icons.add, color: Colors.white),
           activeColorPrimary: Colors.deepPurple,
           inactiveColorPrimary: Colors.grey,
         ),
