@@ -1,3 +1,4 @@
+import 'package:aldente/pages/login/first_page.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_nav_bar.dart';
@@ -12,8 +13,8 @@ class MyPersistentBottomNavBar extends StatelessWidget {
     return MaterialApp(
       title: 'Persistent Bottom Nav Bar',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: const BottomNavBar(),
+      theme: ThemeData(primarySwatch: Colors.blueGrey),
+      home: const FirstPage(),
     );
   }
 }

@@ -16,6 +16,10 @@ dependencies:
     sdk: flutter
   pocketbase: ^0.18.1
   persistent_bottom_nav_bar: ^5.0.2
+  google_fonts: ^6.2.1
+  font_awesome_flutter: ^10.7.0
+  flutter_svg: ^2.0.10+1
+  flutter_cool_card_swiper: ^0.0.4
 
 dev_dependencies:
   flutter_test:
@@ -31,4 +35,11 @@ flutter:
 
   assets:
     # Add assets from the images directory to the application.
+    - assets/icons/
     - assets/images/
+    - images/asset.png
+    - images/asset1.png    
+    - images/asset2.png
+    - images/google.png
+    - images/facebook.png
+    - images/apple.png      
