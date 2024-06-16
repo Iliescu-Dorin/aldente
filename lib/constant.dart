@@ -9,3 +9,10 @@ var kTitleTextColor = const Color(0xff1E1C61);
 var kSearchBackgroundColor = const Color(0xffF2F2F2);
 var kSearchTextColor = const Color(0xffC0C0C0);
 var kCategoryTextColor = const Color(0xff292685);
+
+// Add your constants here
+// const Color kBackgroundColor = Colors.white;
+// const Color kTitleTextColor = Colors.black;
+// const Color kBlueColor = Colors.blue;
+// const Color kYellowColor = Colors.yellow;
+// const Color kOrangeColor = Colors.orange;

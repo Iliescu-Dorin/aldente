@@ -28,7 +28,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DASHBOARD,
-      page: () => const DashboardView(),
+      page: () => const ChatPage(),
       binding: DashboardBinding(),
     ),
     GetPage(

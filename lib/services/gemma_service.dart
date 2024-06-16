@@ -30,3 +30,20 @@ class GemmaLocalService {
     }
   }
 }
+
+Future<void> initializeFlutterGemma() async {
+  try {
+    await FlutterGemmaPlugin.instance.init(
+      maxTokens: 512,
+      temperature: 1.0,
+      topK: 1,
+      randomSeed: 1,
+    ).timeout(const Duration(seconds: 10)); // Set a timeout of 10 seconds
+  } catch (e) {
+    // Handle any errors that occur during initialization
+    print('Error initializing FlutterGemmaPlugin: $e');
+    // You can choose to rethrow the error, display an error message to the user,
+    // or take any other appropriate action based on your app's requirements.
+    rethrow;
+  }
+}

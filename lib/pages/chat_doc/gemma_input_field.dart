@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:aldente/pages/chat_doc/chat_message.dart';
-import 'package:aldente/pages/chat_doc/service/gemma_service.dart';
+import 'package:aldente/services/gemma_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemma/core/message.dart';
 

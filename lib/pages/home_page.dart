@@ -1,14 +1,14 @@
 import 'package:aldente/constant.dart';
+import 'package:aldente/pages/chat_doc/chat_screen.dart';
+import 'package:aldente/services/gemma_service.dart';
+import 'package:aldente/src/theme/extension.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:aldente/pages/components/app_search_bar.dart';
 import 'package:aldente/pages/components/category_card.dart';
 import 'package:aldente/pages/components/doctor_card.dart';
-import 'package:aldente/src/theme/extension.dart';
 import 'package:aldente/src/theme/light_color.dart';
 import 'package:aldente/src/theme/text_styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_gemma/flutter_gemma.dart';
-import 'package:aldente/pages/chat_doc/chat_app.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,23 +21,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<void> initializeFlutterGemma() async {
-    try {
-      await FlutterGemmaPlugin.instance.init(
-        maxTokens: 512,
-        temperature: 1.0,
-        topK: 1,
-        randomSeed: 1,
-      ).timeout(const Duration(seconds: 10)); // Set a timeout of 10 seconds
-    } catch (e) {
-      // Handle any errors that occur during initialization
-      print('Error initializing FlutterGemmaPlugin: $e');
-      // You can choose to rethrow the error, display an error message to the user,
-      // or take any other appropriate action based on your app's requirements.
-      rethrow;
-    }
   }
 
   PreferredSizeWidget? _appBar() {
@@ -54,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           await initializeFlutterGemma();
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ChatApp()),
+            MaterialPageRoute(builder: (context) => const ChatScreen()),
           );
         },
       ),

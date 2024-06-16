@@ -1,5 +1,6 @@
 // ignore_for_file: implementation_imports
 
+import 'package:aldente/constant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,7 +9,7 @@ import 'chatting_controller.dart';
 import 'package:chatview/src/models/voice_message_configuration.dart';
 
 class ChattingView extends GetView<ChattingController> {
-  const ChattingView({Key? key}) : super(key: key);
+  const ChattingView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +17,7 @@ class ChattingView extends GetView<ChattingController> {
         () => ChatView(
           appBar: AppBar(
             title: Text(controller.chatsRoom.name?.capitalizeFirst ?? "Chat"),
-            backgroundColor: Colors.black,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           ),
           chatController: controller.chatController,
           currentUser: controller.currentUser,
@@ -40,6 +41,9 @@ class ChattingView extends GetView<ChattingController> {
             textFieldConfig: const TextFieldConfiguration(
               textStyle: TextStyle(color: Colors.black),
             ),
+          ),
+          chatBackgroundConfig: ChatBackgroundConfiguration(
+            backgroundColor: kBackgroundColor, // Other configurations like height, width, padding, margin can also be set here
           ),
         ),
       ),

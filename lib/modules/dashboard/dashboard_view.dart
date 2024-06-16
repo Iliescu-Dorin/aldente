@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import '../../services/pocketbase_service.dart';
 import 'dashboard_controller.dart';
 
-class DashboardView extends StatelessWidget {
-  const DashboardView({super.key});
+class ChatPage extends StatelessWidget {
+  const ChatPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class DashboardView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Chats'),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         leading: IconButton(
           onPressed: controller.loadRooms,
           icon: const Icon(Icons.refresh),

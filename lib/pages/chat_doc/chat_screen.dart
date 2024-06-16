@@ -1,3 +1,4 @@
+import 'package:aldente/constant.dart';
 import 'package:aldente/pages/chat_doc/chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemma/flutter_gemma.dart';
@@ -27,9 +28,9 @@ class ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0b2351),
+      backgroundColor: kBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0b2351),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: const Text(
           'AlDente ChatDoc',
           style: TextStyle(fontSize: 20),
@@ -43,8 +44,8 @@ class ChatScreenState extends State<ChatScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.grey[300]!,
-              const Color.fromARGB(255, 37, 33, 33),
+              Theme.of(context).scaffoldBackgroundColor,
+              kBackgroundColor,
             ],
           ),
         ),
