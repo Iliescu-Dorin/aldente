@@ -28,6 +28,13 @@ dependencies:
   get: ^4.6.6
   intl: ^0.18.1
   flutter_launcher_icons: ^0.13.1
+  tflite_flutter: ^0.10.4
+  flutter_gemma: ^0.2.1
+  flutter_bloc: ^8.1.6
+  flutter_markdown: ^0.7.2
+
+dependency_overrides:
+  js: ^0.7.1
 
 dev_dependencies:
   flutter_test:
@@ -69,3 +76,4 @@ flutter:
     - images/google.png
     - images/facebook.png
     - images/apple.png      
+    - assets/models/yolov8n.tflite

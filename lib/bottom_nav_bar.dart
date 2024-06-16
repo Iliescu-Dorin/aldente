@@ -1,5 +1,6 @@
 import 'package:aldente/modules/dashboard/dashboard_view.dart';
 import 'package:aldente/pages/explore_page.dart';
+import 'package:aldente/pages/x_rays_camera/xray_page.dart';
 import 'package:aldente/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,7 @@ class BottomNavBar extends StatelessWidget {
         const HomePage(),
         const ExplorePage(),
         const DashboardView(),
-        const ShoppingPage(),
+        const XRayPage(),
       ];
     }
 
