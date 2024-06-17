@@ -1,9 +1,9 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:io';
 import 'package:aldente/data/helper.dart';
 import 'package:aldente/data/message_builder.dart';
 import 'package:aldente/models/chat_room.dart';
+import 'package:aldente/models/doctor.dart';
+import 'package:aldente/models/specialty.dart';
 import 'package:aldente/models/user.dart';
 import 'package:aldente/services/storage_service.dart';
 import 'package:get/get.dart';
@@ -14,6 +14,7 @@ import 'package:pocketbase/pocketbase.dart';
 
 class PocketbaseService extends GetxService {
   static PocketbaseService get to => Get.find();
+
   // Replace with your pocketbase url
   final _pocketBaseUrl = "http://192.168.0.199:8090";
 
@@ -180,6 +181,64 @@ class PocketbaseService extends GetxService {
     }
   }
 
+  // Future<Doctor>? getCurrentDoctorProfile({bool useCache = false}) async {
+  //   var userId = user!.id!;
+  //   final result = await _client.collection('Doctor').getFirstListItem(
+  //         'doctor_id = "$userId"',
+  //          expand: 'specialty_id',
+  //       );
+
+  //   final doctor = Doctor.fromJson(result.toJson());
+  //   return doctor;
+  // }
+
+  Future<Doctor>? getCurrentDoctorProfile({bool useCache = false}) async {
+    var userId = user!.id!;
+    final result = await _client.collection('Doctor').getFullList(
+          filter: 'doctor_id = "$userId"',
+          expand: 'specialty_id',
+        );
+
+    final doctorJson = result.first.toJson();
+    final doctor = Doctor.fromJson(doctorJson);
+    final specialtyJsonList =
+        doctorJson['expand']?['specialty_id'] as List<dynamic>?;
+    if (specialtyJsonList != null) {
+      final specialties = specialtyJsonList
+          .map((specialtyJson) => Specialty.fromJson(specialtyJson))
+          .toList();
+      doctor.specialties = specialties;
+    }
+    return doctor;
+  }
+
+  Future<List<Specialty>> getSpecialtiesByIds(
+      List<String>? specialtyIds) async {
+    if (specialtyIds == null || specialtyIds.isEmpty) {
+      return [];
+    }
+
+    final specialties = <Specialty>[];
+    for (final specialtyId in specialtyIds) {
+      final specialty = await getSpecialtyById(specialtyId);
+      if (specialty != null) {
+        specialties.add(specialty);
+      }
+    }
+    return specialties;
+  }
+
+  Future<Specialty?> getSpecialtyById(String specialtyId) async {
+    try {
+      final record =
+          await _client.collection('specialties').getOne(specialtyId);
+      return Specialty.fromJson(record.toJson());
+    } catch (e) {
+      print('Error fetching specialty: $e');
+      return null;
+    }
+  }
+
   /// Helpers
   Uri getFileUrl(RecordModel recordModel, String fileName) =>
       _client.getFileUrl(recordModel, fileName);
@@ -200,6 +259,21 @@ class PocketbaseService extends GetxService {
       var bytes = await consolidateHttpClientResponseBytes(response);
       return await file.writeAsBytes(bytes);
     } catch (error) {
+      return null;
+    }
+  }
+
+  /// Get user role based on the authenticated user
+  Future<String?> getUserRole() async {
+    try {
+      final result = await _client.collection('users').getOne(user!.id!);
+      final userData = User.fromJson(result.toJson());
+      return userData.role; // Adjust as per your User model
+    } on ClientException catch (e) {
+      Get.log(e.toString());
+      return null;
+    } catch (e) {
+      Get.log(e.toString());
       return null;
     }
   }

@@ -1,7 +1,21 @@
-import 'package:aldente/services/pocketbase_service.dart';
+import 'package:aldente/services/pocketbase/pocketbase_service.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 class User {
+  final String? id;
+  final DateTime? created;
+  final DateTime? updated;
+  final String? collectionId;
+  final String? collectionName;
+  final String? avatar;
+  final String? email;
+  final bool? emailVisibility;
+  final String? name;
+  final String? username;
+  final bool? verified;
+  final String? role; // Added role field
+  String? token;
+
   User({
     required this.id,
     required this.created,
@@ -14,21 +28,9 @@ class User {
     required this.name,
     required this.username,
     required this.verified,
+    required this.role, // Added role parameter
     this.token,
   });
-
-  final String? id;
-  final DateTime? created;
-  final DateTime? updated;
-  final String? collectionId;
-  final String? collectionName;
-  final String? avatar;
-  final String? email;
-  final bool? emailVisibility;
-  final String? name;
-  final String? username;
-  final bool? verified;
-  String? token;
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -43,30 +45,40 @@ class User {
       name: json["name"],
       username: json["username"],
       verified: json["verified"],
+      role: json["role"], // Initialize role from JSON
+      token: json["token"],
     );
   }
 
-  Uri? get getProfilePic => avatar?.isEmpty == true
-      ? null
-      : PocketbaseService.to.getFileUrl(
-          RecordModel(
-            id: id ?? "",
-            collectionId: collectionId ?? "",
-            collectionName: collectionName ?? "",
-          ),
-          avatar ?? "");
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "created": created?.toIso8601String(),
-        "updated": updated?.toIso8601String(),
-        "collectionId": collectionId,
-        "collectionName": collectionName,
-        "avatar": avatar,
-        "email": email,
-        "emailVisibility": emailVisibility,
-        "name": name,
-        "username": username,
-        "verified": verified,
-        "token": token,
-      };
+  Uri? get profilePicUrl {
+    if (avatar?.isNotEmpty ?? false) {
+      return PocketbaseService.to.getFileUrl(
+        RecordModel(
+          id: id ?? "",
+          collectionId: collectionId ?? "",
+          collectionName: collectionName ?? "",
+        ),
+        avatar!,
+      );
+    }
+    return null;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "created": created?.toIso8601String(),
+      "updated": updated?.toIso8601String(),
+      "collectionId": collectionId,
+      "collectionName": collectionName,
+      "avatar": avatar,
+      "email": email,
+      "emailVisibility": emailVisibility,
+      "name": name,
+      "username": username,
+      "verified": verified,
+      "role": role, // Include role in JSON serialization
+      "token": token,
+    };
+  }
 }

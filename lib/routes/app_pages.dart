@@ -1,5 +1,9 @@
 import 'package:aldente/bindings/chatting_binding%20copy.dart';
+import 'package:aldente/bindings/clinichome_binding.dart';
+import 'package:aldente/bindings/doctorhome_binding.dart';
 import 'package:aldente/bottom_nav_bar.dart';
+import 'package:aldente/pages/clinic_home.dart';
+import 'package:aldente/pages/doctor_home.dart';
 import 'package:aldente/pages/home_page.dart';
 import 'package:get/get.dart';
 
@@ -36,5 +40,16 @@ class AppPages {
       page: () => const ChattingView(),
       binding: ChattingBinding(),
     ),
+    GetPage(
+      name: _Paths.DOCTORHOME,
+      page: () => const DoctorHome(),
+      binding: DoctorHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.CLINICHOME,
+      page: () => const ClinicHome(),
+      binding: ClinicHomeBinding(),
+    ),
+
   ];
 }

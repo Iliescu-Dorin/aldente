@@ -1,6 +1,6 @@
 import 'package:aldente/models/chat_room.dart';
 import 'package:aldente/models/user.dart';
-import 'package:aldente/services/pocketbase_service.dart';
+import 'package:aldente/services/pocketbase/pocketbase_service.dart';
 import 'package:chatview/chatview.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -67,7 +67,7 @@ class ChattingController extends GetxController {
     currentUser = ChatUser(
       name: chatUser.name ?? "no_name",
       id: chatUser.id ?? "0",
-      profilePhoto: chatUser.getProfilePic?.toString(),
+      profilePhoto: chatUser.profilePicUrl?.toString(),
     );
     chatController = ChatController(
       initialMessageList: [],
@@ -101,7 +101,7 @@ class ChattingController extends GetxController {
         chatController.chatUsers.add(ChatUser(
           name: userDetails.name ?? "",
           id: message.sendBy,
-          profilePhoto: userDetails.getProfilePic?.toString(),
+          profilePhoto: userDetails.profilePicUrl?.toString(),
         ));
       }
     }

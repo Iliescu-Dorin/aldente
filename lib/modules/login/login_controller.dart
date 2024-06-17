@@ -1,4 +1,4 @@
-import 'package:aldente/services/pocketbase_service.dart';
+import 'package:aldente/services/pocketbase/pocketbase_service.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +32,32 @@ class LoginController extends GetxController {
     }
   }
 
-  void onLoginComplete() {
-    Get.offAllNamed(Routes.DASHBOARD);
+  void onLoginComplete() async {
+    // Fetch the user's role
+    String? role = await PocketbaseService.to.getUserRole();
+
+    if (role == null) {
+      // Handle the case when the user's role is not available
+      // For example, you can show an error message or redirect to a default route
+      Get.offAllNamed(Routes.LOGIN);
+      return;
+    }
+
+    // Determine the route based on the user's role
+    switch (role) {
+      case 'client':
+        Get.offAllNamed(Routes.BOTTOMNAVBAR);
+        break;
+      case 'doctor':
+        Get.offAllNamed(Routes.DOCTORHOME);
+        break;
+      case 'clinic':
+        Get.offAllNamed(Routes.CLINICHOME);
+        break;
+      default:
+        // Handle unknown roles or redirect to a default route
+        Get.offAllNamed(Routes.BOTTOMNAVBAR);
+        break;
+    }
   }
 }

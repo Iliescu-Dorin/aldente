@@ -19,7 +19,7 @@ class ChatMessageWidget extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(right: 16.0),
               child: CircleAvatar(
-                child: Text(message.isUser ? 'Me' : 'AI'),
+                child: Text(message.isUser ? 'Me' : 'CD'),
               ),
             ),
           Expanded(

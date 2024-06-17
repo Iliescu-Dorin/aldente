@@ -1,7 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:io';
-import 'package:aldente/services/pocketbase_service.dart';
+import 'package:aldente/services/pocketbase/pocketbase_service.dart';
 import "package:http/http.dart" as http;
 import 'package:chatview/chatview.dart';
 import 'package:intl/intl.dart';

@@ -2,7 +2,7 @@ import 'package:aldente/models/chat_room.dart';
 import 'package:chatview/chatview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../services/pocketbase_service.dart';
+import '../../services/pocketbase/pocketbase_service.dart';
 import 'dashboard_controller.dart';
 
 class ChatPage extends StatelessWidget {

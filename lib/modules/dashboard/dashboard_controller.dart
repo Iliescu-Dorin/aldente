@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../models/user.dart';
-import '../../services/pocketbase_service.dart';
+import '../../services/pocketbase/pocketbase_service.dart';
 
 class DashboardController extends GetxController {
   RxBool isLoading = false.obs;
