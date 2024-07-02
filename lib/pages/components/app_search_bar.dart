@@ -8,60 +8,73 @@ class AppSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> dentalTips = [
+      {
+        "title": "Brush Twice Daily",
+        "description": "Use fluoride toothpaste for 2 minutes",
+        "icon": "🪥"
+      },
+      {
+        "title": "Floss Daily",
+        "description": "Clean between teeth to remove plaque",
+        "icon": "🦷"
+      },
+      {
+        "title": "Limit Sugary Foods",
+        "description": "Reduce risk of tooth decay",
+        "icon": "🍬"
+      },
+      {
+        "title": "Regular Check-ups",
+        "description": "Visit your dentist every 6 months",
+        "icon": "👨‍⚕️"
+      },
+      {
+        "title": "Use Mouthwash",
+        "description": "Rinse to kill bacteria and freshen breath",
+        "icon": "💧"
+      },
+    ];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: SizedBox(
         height: Constants.cardHeight,
         child: CoolSwiper(
           children: List.generate(
-            Data.colors.length,
+            dentalTips.length,
             (index) => Container(
               height: Constants.cardHeight,
-              padding: const EdgeInsets.all(40),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Data.colors[index],
+                color: Data.colors[index % Data.colors.length],
                 borderRadius: BorderRadius.circular(18),
               ),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.2),
-                        shape: BoxShape.circle,
-                      ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    dentalTips[index]["icon"]!,
+                    style: const TextStyle(fontSize: 40),
+                  ),
+                  const Spacer(),
+                  Text(
+                    dentalTips[index]["title"]!,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                    const SizedBox(width: 15),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 15,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Container(
-                          height: 15,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    dentalTips[index]["description"]!,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

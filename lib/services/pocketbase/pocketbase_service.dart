@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:aldente/data/helper.dart';
 import 'package:aldente/data/message_builder.dart';
+import 'package:aldente/exceptions/auth_exception.dart';
 import 'package:aldente/models/appointment.dart';
 import 'package:aldente/models/chat_room.dart';
+import 'package:aldente/models/client.dart';
 import 'package:aldente/models/doctor.dart';
 import 'package:aldente/models/specialty.dart';
 import 'package:aldente/models/user.dart';
@@ -194,6 +196,23 @@ class PocketbaseService extends GetxService {
     }
   }
 
+  Future<Client> getCurrentClientProfile({bool useCache = false}) async {
+    final userId = user?.id;
+    if (userId == null) {
+      throw Exception('User ID is null');
+    }
+
+    try {
+      final result = await _client.collection('Client').getFullList(
+            filter: 'user_id = "$userId"',
+          );
+
+      return Client.fromJson(result.first.toJson());
+    } catch (e) {
+      throw Exception('Failed to fetch client profile: ${e.toString()}');
+    }
+  }
+
   // Doctor-related methods
   Future<Doctor>? getCurrentDoctorProfile({bool useCache = false}) async {
     var userId = user!.id!;
@@ -353,5 +372,40 @@ class PocketbaseService extends GetxService {
       Get.log('Error geocoding address: $e');
     }
     return null;
+  }
+
+  Future<void> authWithOAuth2(
+    String provider,
+    Function(Uri) accessToken,
+    String? idToken,
+    String? email,
+    String? name,
+  ) async {
+    try {
+      final authData = await _client.collection('users').authWithOAuth2(
+        provider,
+        (url) => accessToken,
+        createData: {
+          'email': email,
+          'name': name,
+          'role': 'client', // Set the role to 'client' for new users
+        },
+      );
+
+      // If the user already exists, update their role to 'client'
+      if (authData.record != null &&
+          authData.record!.data['role'] != 'client') {
+        await _client.collection('users').update(authData.record!.id, body: {
+          'role': 'client',
+        });
+      }
+
+      // Handle the authenticated user data as needed
+      print('Authenticated user: ${authData.record}');
+    } catch (e) {
+      print('OAuth2 authentication error: $e');
+      throw AuthException(
+          'Failed to authenticate with OAuth2: ${e.toString()}');
+    }
   }
 }

@@ -1,31 +1,72 @@
 import 'package:aldente/services/pocketbase/pocketbase_service.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:get/get.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+
   Future<String?> onLogin(LoginData loginData) async {
-    try {
-      String email = loginData.name;
-      String password = loginData.password;
-      await PocketbaseService.to.login(email, password);
-      return null;
-    } catch (e) {
-      return e.toString();
-    }
+    return _handleAuthOperation(
+        () => PocketbaseService.to.login(loginData.name, loginData.password));
   }
 
   Future<String?> onSignup(SignupData signUpData) async {
-    try {
+    return _handleAuthOperation(() async {
       String? email = signUpData.name;
       String? password = signUpData.password;
       String? name = signUpData.additionalSignupData?["name"];
+
       if (email == null || password == null || name == null) {
         throw Exception("Invalid data");
       }
+
       await PocketbaseService.to.signUp(name, email, password);
       await PocketbaseService.to.login(email, password);
+    });
+  }
+
+  Future<String?> onGoogleLogin() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        return 'Google sign in cancelled';
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // Create a function that returns the access token
+      dynamic accessTokenFunction(Uri uri) => googleAuth.accessToken;
+
+      await PocketbaseService.to.authWithOAuth2(
+        'google',
+        accessTokenFunction,
+        googleAuth.idToken,
+        googleUser.email,
+        googleUser.displayName,
+      );
+
+      // If we reach here, authentication was successful
+      return null;
+    } catch (e) {
+      if (e is Exception) {
+        return e.toString();
+      }
+      return 'An unexpected error occurred during Google sign in';
+    }
+  }
+
+  Future<String?> _handleAuthOperation(
+      Future<void> Function() operation) async {
+    try {
+      await operation();
       return null;
     } catch (e) {
       return e.toString();
@@ -33,31 +74,21 @@ class LoginController extends GetxController {
   }
 
   void onLoginComplete() async {
-    // Fetch the user's role
     String? role = await PocketbaseService.to.getUserRole();
+    String route = _getRouteForRole(role);
+    Get.offAllNamed(route);
+  }
 
-    if (role == null) {
-      // Handle the case when the user's role is not available
-      // For example, you can show an error message or redirect to a default route
-      Get.offAllNamed(Routes.LOGIN);
-      return;
-    }
-
-    // Determine the route based on the user's role
+  String _getRouteForRole(String? role) {
     switch (role) {
       case 'client':
-        Get.offAllNamed(Routes.BOTTOMNAVBAR);
-        break;
+        return Routes.BOTTOMNAVBAR;
       case 'doctor':
-        Get.offAllNamed(Routes.DOCTORHOME);
-        break;
+        return Routes.DOCTORHOME;
       case 'clinic':
-        Get.offAllNamed(Routes.CLINICHOME);
-        break;
+        return Routes.CLINICHOME;
       default:
-        // Handle unknown roles or redirect to a default route
-        Get.offAllNamed(Routes.BOTTOMNAVBAR);
-        break;
+        return Routes.BOTTOMNAVBAR;
     }
   }
 }

@@ -10,6 +10,18 @@ var kSearchBackgroundColor = const Color(0xffF2F2F2);
 var kSearchTextColor = const Color(0xffC0C0C0);
 var kCategoryTextColor = const Color(0xff292685);
 
+// New colors for additional specialties
+var kGreenColor = const Color(0xff4CAF50);
+var kPurpleColor = const Color(0xff9C27B0);
+var kPinkColor = const Color(0xffE91E63);
+var kRedColor = const Color(0xffF44336);
+var kTealColor = const Color(0xff009688);
+var kLightBlueColor = const Color(0xff03A9F4);
+var kLimeColor = const Color(0xffCDDC39);
+var kAmberColor = const Color(0xffFFC107);
+var kBrownColor = const Color(0xff795548);
+var kIndigoColor = const Color(0xff3F51B5);
+
 // Add your constants here
 // const Color kBackgroundColor = Colors.white;
 // const Color kTitleTextColor = Colors.black;
