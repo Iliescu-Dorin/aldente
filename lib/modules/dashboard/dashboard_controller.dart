@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../../models/user.dart';
 import '../../services/pocketbase/pocketbase_service.dart';
 
-class DashboardController extends GetxController {
+class ChatDashboardController extends GetxController {
   RxBool isLoading = false.obs;
   List<ChatRoom> rooms = <ChatRoom>[];
   final _roomNameEditingController = TextEditingController();

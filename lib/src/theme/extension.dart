@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:aldente/src/theme/light_color.dart';
 import 'package:flutter/material.dart';

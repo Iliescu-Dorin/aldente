@@ -4,11 +4,10 @@ import "package:persistent_bottom_nav_bar/persistent_tab_view.dart";
 
 class MainScreen extends StatelessWidget {
   const MainScreen(
-      {final Key? key,
+      {super.key,
       required this.menuScreenContext,
       required this.onScreenHideButtonPressed,
-      this.hideStatus = false})
-      : super(key: key);
+      this.hideStatus = false});
   final BuildContext menuScreenContext;
   final VoidCallback onScreenHideButtonPressed;
   final bool hideStatus;
@@ -35,7 +34,7 @@ class MainScreen extends StatelessWidget {
                       PersistentNavBarNavigator.pushNewScreenWithRouteSettings(
                         context,
                         settings: const RouteSettings(name: "/home"),
-                        screen: MainScreen2(),
+                        screen: const MainScreen2(),
                         pageTransitionAnimation:
                             PageTransitionAnimation.scaleRotate,
                       );
@@ -143,7 +142,7 @@ class MainScreen extends StatelessWidget {
 }
 
 class MainScreen2 extends StatelessWidget {
-  const MainScreen2({final Key? key}) : super(key: key);
+  const MainScreen2({super.key});
 
   @override
   Widget build(final BuildContext context) => Scaffold(
@@ -155,7 +154,7 @@ class MainScreen2 extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   PersistentNavBarNavigator.pushNewScreen(context,
-                      screen: MainScreen3());
+                      screen: const MainScreen3());
                 },
                 child: const Text(
                   "Go to Third Screen",
@@ -178,7 +177,7 @@ class MainScreen2 extends StatelessWidget {
 }
 
 class MainScreen3 extends StatelessWidget {
-  const MainScreen3({final Key? key}) : super(key: key);
+  const MainScreen3({super.key});
 
   @override
   Widget build(final BuildContext context) => Scaffold(

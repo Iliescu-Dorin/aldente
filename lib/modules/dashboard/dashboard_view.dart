@@ -10,7 +10,7 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DashboardController controller = Get.put(DashboardController());
+    final ChatDashboardController controller = Get.put(ChatDashboardController());
 
     return Scaffold(
       appBar: AppBar(

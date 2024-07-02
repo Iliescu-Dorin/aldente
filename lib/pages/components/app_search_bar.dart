@@ -1,9 +1,7 @@
-import 'package:aldente/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cool_card_swiper/constants.dart';
 import 'package:flutter_cool_card_swiper/data.dart';
 import 'package:flutter_cool_card_swiper/widgets/cool_swiper.dart';
-import 'package:flutter_svg/svg.dart';
 
 class AppSearchBar extends StatelessWidget {
   const AppSearchBar({super.key});

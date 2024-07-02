@@ -9,6 +9,7 @@ abstract class Routes {
   static const CLINICHOME = _Paths.CLINICHOME;
   static const DASHBOARD = _Paths.DASHBOARD;
   static const CHATTING = _Paths.CHATTING;
+  static const EXPLORE = _Paths.EXPLORE;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const CLINICHOME = '/clinichome';
   static const DASHBOARD = '/dashboard';
   static const CHATTING = '/chatting';
+  static const EXPLORE = '/explore';
 }

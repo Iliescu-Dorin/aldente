@@ -7,7 +7,7 @@ class User {
   final DateTime? updated;
   final String? collectionId;
   final String? collectionName;
-  final String? avatar;
+  String? avatar;
   final String? email;
   final bool? emailVisibility;
   final String? name;
